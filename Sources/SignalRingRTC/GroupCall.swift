@@ -3,7 +3,7 @@
 // SPDX-License-Identifier: AGPL-3.0-only
 //
 
-import SignalRingRTC.RingRTC
+import RingRTC
 import WebRTC
 
 /// Represents the connection state to a media server for a group call.

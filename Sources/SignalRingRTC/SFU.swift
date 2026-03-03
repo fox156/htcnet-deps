@@ -6,7 +6,7 @@
 // FFI that allows the application to make requests
 // to the SFU, such as peeking a group call.
 
-import SignalRingRTC.RingRTC
+import RingRTC
 
 public struct PeekRequest {
     public let sfuURL: String

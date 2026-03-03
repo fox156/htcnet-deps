@@ -6,7 +6,7 @@
 // FFI that allows RingRTC to make HTTP requests through
 // a Delegate implemented by the application.
 
-import SignalRingRTC.RingRTC
+import RingRTC
 
 // Same as rust http::Method.
 public enum HTTPMethod: Int32 {
