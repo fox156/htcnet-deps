@@ -49,12 +49,12 @@ let package = Package(
         // ══════════════════════════════════════════════════════════════
 
         .binaryTarget(
-            name: "LibSignalFFI",
+            name: "SignalFfi",
             url: "\(githubBaseURL)/\(libsignalVersion)/LibSignalFFI.xcframework.zip",
             checksum: libsignalFFIChecksum
         ),
         .binaryTarget(
-            name: "LibRingRTC",
+            name: "RingRTC",
             url: "\(githubBaseURL)/\(ringrtcVersion)/LibRingRTC.xcframework.zip",
             checksum: libRingRTCChecksum
         ),
@@ -70,7 +70,7 @@ let package = Package(
 
         .target(
             name: "LibSignalClient",
-            dependencies: ["LibSignalFFI"],
+            dependencies: ["SignalFfi"],
             path: "Sources/LibSignalClient",
             swiftSettings: [
                 .define("SIGNAL_MEDIA_SUPPORTED", .when(platforms: [.iOS])),
@@ -78,7 +78,7 @@ let package = Package(
         ),
         .target(
             name: "SignalRingRTC",
-            dependencies: ["LibRingRTC", "WebRTC"],
+            dependencies: ["RingRTC", "WebRTC"],
             path: "Sources/SignalRingRTC"
         ),
     ]
