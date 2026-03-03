@@ -3,44 +3,28 @@
 // HTCNet Dependencies Package
 // ============================================================================
 //
-// Этот пакет объединяет все бинарные зависимости HTCNet в одном SPM-пакете:
-//
-//   1. LibSignalFFI     — Rust FFI слой libsignal (бинарный XCFramework)
+// Зависимости:
+//   1. LibSignalFFI     — Rust FFI слой libsignal (XCFramework)
 //   2. LibSignalClient  — Swift-обёртка над LibSignalFFI
-//   3. LibRingRTC       — Rust/C++ FFI слой RingRTC (бинарный XCFramework)
-//   4. WebRTC           — WebRTC framework от Google/Signal (бинарный XCFramework)
+//   3. LibRingRTC       — Rust/C++ FFI слой RingRTC (XCFramework)
+//   4. WebRTC           — WebRTC framework (XCFramework)
 //   5. SignalRingRTC    — Swift-обёртка над LibRingRTC + WebRTC
 //
 // Репозиторий: https://github.com/fox156/htcnet-deps
-//
-// Структура:
-//   htcnet-deps/
-//   ├── Package.swift           ← этот файл
-//   ├── Sources/
-//   │   ├── LibSignalClient/    ← Swift-исходники из libsignal/swift/Sources/LibSignalClient/
-//   │   └── SignalRingRTC/      ← Swift-исходники из ringrtc/src/ios/SignalRingRTC/
-//   └── (XCFrameworks скачиваются из GitHub Releases как binary targets)
 // ============================================================================
 
 import PackageDescription
 
-// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-// ВЕРСИИ И CHECKSUMS
-// Обновляйте при пересборке XCFrameworks
-// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
 let githubBaseURL = "https://github.com/fox156/htcnet-deps/releases/download"
 
-// libsignal v0.78.0
+// libsignal v0.86.16
 let libsignalVersion = "libsignal-v0.86.16"
 let libsignalFFIChecksum = "c77deee591fb7433613ecbcdaa5c31e40fd166c1e0f02cecc29f083706b93592"
 
-// RingRTC v2.56.0
-let ringrtcVersion = "v2.56.0"
-let libRingRTCChecksum = "<CHECKSUM_AFTER_BUILD>"
-let webRTCChecksum = "<CHECKSUM_AFTER_BUILD>"
-
-// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// RingRTC v2.64.1
+let ringrtcVersion = "ringrtc-v2.64.1"
+let libRingRTCChecksum = "cc3083257c01c46aca2d9f8f444028ca31904d1b865a6edafedf1b58b69fefdc"
+let webRTCChecksum = "d6fcb8aec002f769b2987c0ac372a04d9a553b08f3fc61020dedf3acc68ffd4a"
 
 let package = Package(
     name: "HTCNetDeps",
@@ -64,21 +48,16 @@ let package = Package(
         // BINARY TARGETS (pre-built XCFrameworks)
         // ══════════════════════════════════════════════════════════════
 
-        // Rust FFI layer для libsignal (libsignal_ffi.a)
         .binaryTarget(
             name: "LibSignalFFI",
             url: "\(githubBaseURL)/\(libsignalVersion)/LibSignalFFI.xcframework.zip",
             checksum: libsignalFFIChecksum
         ),
-
-        // Rust/C++ FFI layer для RingRTC (libringrtc.a)
         .binaryTarget(
             name: "LibRingRTC",
             url: "\(githubBaseURL)/\(ringrtcVersion)/LibRingRTC.xcframework.zip",
             checksum: libRingRTCChecksum
         ),
-
-        // WebRTC framework (от Google через Signal)
         .binaryTarget(
             name: "WebRTC",
             url: "\(githubBaseURL)/\(ringrtcVersion)/WebRTC.xcframework.zip",
@@ -89,8 +68,6 @@ let package = Package(
         // SWIFT WRAPPER TARGETS
         // ══════════════════════════════════════════════════════════════
 
-        // Swift-обёртка Signal Protocol
-        // Исходники: libsignal/swift/Sources/LibSignalClient/
         .target(
             name: "LibSignalClient",
             dependencies: ["LibSignalFFI"],
@@ -99,9 +76,6 @@ let package = Package(
                 .define("SIGNAL_MEDIA_SUPPORTED", .when(platforms: [.iOS])),
             ]
         ),
-
-        // Swift-обёртка RingRTC (видео/аудио звонки)
-        // Исходники: ringrtc/src/ios/SignalRingRTC/SignalRingRTC/
         .target(
             name: "SignalRingRTC",
             dependencies: ["LibRingRTC", "WebRTC"],
