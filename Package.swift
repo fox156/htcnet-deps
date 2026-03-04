@@ -11,7 +11,7 @@ let ringRTCChecksum = "0485f7d136ae9c3a6db85b1d7ede38bea9d1d76f2819801892ec2c6e3
 let webRTCChecksum = "d6fcb8aec002f769b2987c0ac372a04d9a553b08f3fc61020dedf3acc68ffd4a"
 
 let sqlcipherVersion = "sqlcipher-v4.6.1"
-let sqlcipherChecksum = "07e6646b06c5bd16b69435ec87141e63f8f9d2e98142c18f2684f155a69df908"
+let sqlcipherChecksum = "0d370c6bf761d767a9fc9f24949d747923abef4f7d7d5fd2333f1638897bf1ac"
 
 let package = Package(
     name: "HTCNetDeps",
