@@ -44,6 +44,14 @@ let package = Package(
             checksum: sqlcipherChecksum
         ),
 
+        // C shim for GRDB+SQLCipher
+        .target(
+            name: "GRDBSQLCipher",
+            dependencies: ["SQLCipher"],
+            path: "Sources/GRDBSQLCipher",
+            publicHeadersPath: "include"
+        ),
+
         // Swift wrappers
         .target(
             name: "LibSignalClient",
@@ -60,7 +68,7 @@ let package = Package(
         ),
         .target(
             name: "GRDB",
-            dependencies: ["SQLCipher"],
+            dependencies: ["SQLCipher", "GRDBSQLCipher"],
             path: "Sources/GRDB",
             swiftSettings: [
                 .define("GRDBCIPHER"),
