@@ -1,73 +1,50 @@
 // swift-tools-version: 5.9
-// ============================================================================
-// HTCNet Dependencies Package
-// ============================================================================
-//
-// Зависимости:
-//   1. LibSignalFFI     — Rust FFI слой libsignal (XCFramework)
-//   2. LibSignalClient  — Swift-обёртка над LibSignalFFI
-//   3. LibRingRTC       — Rust/C++ FFI слой RingRTC (XCFramework)
-//   4. WebRTC           — WebRTC framework (XCFramework)
-//   5. SignalRingRTC    — Swift-обёртка над LibRingRTC + WebRTC
-//
-// Репозиторий: https://github.com/fox156/htcnet-deps
-// ============================================================================
-
 import PackageDescription
 
 let githubBaseURL = "https://github.com/fox156/htcnet-deps/releases/download"
 
-// libsignal v0.86.16
 let libsignalVersion = "libsignal-v0.86.16"
-let libsignalFFIChecksum = "ddaab4252a9b5f37e0ed9359173f922fd64a36ef8ba0213965278dc987f16a67"
+let signalFfiChecksum = "ddaab4252a9b5f37e0ed9359173f922fd64a36ef8ba0213965278dc987f16a67"
 
-// RingRTC v2.64.1
 let ringrtcVersion = "ringrtc-v2.64.1"
-let libRingRTCChecksum = "0485f7d136ae9c3a6db85b1d7ede38bea9d1d76f2819801892ec2c6e388f8946"
+let ringRTCChecksum = "0485f7d136ae9c3a6db85b1d7ede38bea9d1d76f2819801892ec2c6e388f8946"
 let webRTCChecksum = "d6fcb8aec002f769b2987c0ac372a04d9a553b08f3fc61020dedf3acc68ffd4a"
+
+let sqlcipherVersion = "sqlcipher-v4.6.1"
+let sqlcipherChecksum = "099080984a1a0b282fd11c454d5cd1750f160d4890fa2c1eb64cff39f0d82967"
 
 let package = Package(
     name: "HTCNetDeps",
-    platforms: [
-        .iOS(.v16)
-    ],
+    platforms: [.iOS(.v16)],
     products: [
-        // Фаза 2: E2E-шифрование
-        .library(
-            name: "LibSignalClient",
-            targets: ["LibSignalClient"]
-        ),
-        // Фаза 3: Звонки
-        .library(
-            name: "SignalRingRTC",
-            targets: ["SignalRingRTC"]
-        ),
+        .library(name: "LibSignalClient", targets: ["LibSignalClient"]),
+        .library(name: "SignalRingRTC", targets: ["SignalRingRTC"]),
+        .library(name: "GRDB", targets: ["GRDB"]),
     ],
     targets: [
-        // ══════════════════════════════════════════════════════════════
-        // BINARY TARGETS (pre-built XCFrameworks)
-        // ══════════════════════════════════════════════════════════════
-
+        // Binary targets
         .binaryTarget(
             name: "SignalFfi",
             url: "\(githubBaseURL)/\(libsignalVersion)/LibSignalFFI.xcframework.zip",
-            checksum: libsignalFFIChecksum
+            checksum: signalFfiChecksum
         ),
         .binaryTarget(
             name: "RingRTC",
             url: "\(githubBaseURL)/\(ringrtcVersion)/LibRingRTC.xcframework.zip",
-            checksum: libRingRTCChecksum
+            checksum: ringRTCChecksum
         ),
         .binaryTarget(
             name: "WebRTC",
             url: "\(githubBaseURL)/\(ringrtcVersion)/WebRTC.xcframework.zip",
             checksum: webRTCChecksum
         ),
+        .binaryTarget(
+            name: "SQLCipher",
+            url: "\(githubBaseURL)/\(sqlcipherVersion)/SQLCipher.xcframework.zip",
+            checksum: sqlcipherChecksum
+        ),
 
-        // ══════════════════════════════════════════════════════════════
-        // SWIFT WRAPPER TARGETS
-        // ══════════════════════════════════════════════════════════════
-
+        // Swift wrappers
         .target(
             name: "LibSignalClient",
             dependencies: ["SignalFfi"],
@@ -80,6 +57,15 @@ let package = Package(
             name: "SignalRingRTC",
             dependencies: ["RingRTC", "WebRTC"],
             path: "Sources/SignalRingRTC"
+        ),
+        .target(
+            name: "GRDB",
+            dependencies: ["SQLCipher"],
+            path: "Sources/GRDB",
+            swiftSettings: [
+                .define("GRDBCIPHER"),
+                .define("SQLITE_ENABLE_FTS5"),
+            ]
         ),
     ]
 )
