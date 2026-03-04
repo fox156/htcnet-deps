@@ -4,14 +4,14 @@ import PackageDescription
 let githubBaseURL = "https://github.com/fox156/htcnet-deps/releases/download"
 
 let libsignalVersion = "libsignal-v0.86.16"
-let signalFfiChecksum = "8b5c8482a18e1441ac646a40e390a7add76a1fa1684caa6d8af3d164f27138cc"
+let signalFfiChecksum = "7929ca3dcad522ef48986b1930bf0b53b44168984e11f46d779022bdcdb3a38e"
 
 let ringrtcVersion = "ringrtc-v2.64.1"
-let ringRTCChecksum = "0485f7d136ae9c3a6db85b1d7ede38bea9d1d76f2819801892ec2c6e388f8946"
+let ringRTCChecksum = "775cf83d086aa15baaeb912d3b62483491036f6a695ca8dc8057606e8a2732c8"
 let webRTCChecksum = "d6fcb8aec002f769b2987c0ac372a04d9a553b08f3fc61020dedf3acc68ffd4a"
 
 let sqlcipherVersion = "sqlcipher-v4.6.1"
-let sqlcipherChecksum = "0d370c6bf761d767a9fc9f24949d747923abef4f7d7d5fd2333f1638897bf1ac"
+let sqlcipherChecksum = "432d65f72a82544038087e7d7df5b3db215925a0d3eb5c72befed99e2fab3267"
 
 let package = Package(
     name: "HTCNetDeps",
@@ -22,7 +22,6 @@ let package = Package(
         .library(name: "GRDB", targets: ["GRDB"]),
     ],
     targets: [
-        // Binary targets
         .binaryTarget(
             name: "SignalFfi",
             url: "\(githubBaseURL)/\(libsignalVersion)/LibSignalFFI.xcframework.zip",
@@ -43,8 +42,6 @@ let package = Package(
             url: "\(githubBaseURL)/\(sqlcipherVersion)/SQLCipher.xcframework.zip",
             checksum: sqlcipherChecksum
         ),
-
-        // Swift wrappers
         .target(
             name: "LibSignalClient",
             dependencies: ["SignalFfi"],
