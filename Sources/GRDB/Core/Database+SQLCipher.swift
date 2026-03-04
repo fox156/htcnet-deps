@@ -1,8 +1,8 @@
 #if SQLITE_HAS_CODEC
 #if GRDBCIPHER // CocoaPods (SQLCipher subspec)
-import SQLCipher
+import GRDBSQLCipher
 #elseif SQLCipher
-import SQLCipher
+import GRDBSQLCipher
 #else
 #error("No SQLCipher library configured")
 #endif
