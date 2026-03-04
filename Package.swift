@@ -11,7 +11,7 @@ let ringRTCChecksum = "0485f7d136ae9c3a6db85b1d7ede38bea9d1d76f2819801892ec2c6e3
 let webRTCChecksum = "d6fcb8aec002f769b2987c0ac372a04d9a553b08f3fc61020dedf3acc68ffd4a"
 
 let sqlcipherVersion = "sqlcipher-v4.6.1"
-let sqlcipherChecksum = "099080984a1a0b282fd11c454d5cd1750f160d4890fa2c1eb64cff39f0d82967"
+let sqlcipherChecksum = "07e6646b06c5bd16b69435ec87141e63f8f9d2e98142c18f2684f155a69df908"
 
 let package = Package(
     name: "HTCNetDeps",
@@ -39,17 +39,9 @@ let package = Package(
             checksum: webRTCChecksum
         ),
         .binaryTarget(
-            name: "SQLCipher",
+            name: "GRDBSQLCipher",
             url: "\(githubBaseURL)/\(sqlcipherVersion)/SQLCipher.xcframework.zip",
             checksum: sqlcipherChecksum
-        ),
-
-        // C shim for GRDB+SQLCipher
-        .target(
-            name: "GRDBSQLCipher",
-            dependencies: ["SQLCipher"],
-            path: "Sources/GRDBSQLCipher",
-            publicHeadersPath: "include"
         ),
 
         // Swift wrappers
@@ -68,7 +60,7 @@ let package = Package(
         ),
         .target(
             name: "GRDB",
-            dependencies: ["SQLCipher", "GRDBSQLCipher"],
+            dependencies: ["GRDBSQLCipher"],
             path: "Sources/GRDB",
             swiftSettings: [
                 .define("GRDBCIPHER"),
