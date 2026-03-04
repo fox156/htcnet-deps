@@ -4,7 +4,7 @@ import PackageDescription
 let githubBaseURL = "https://github.com/fox156/htcnet-deps/releases/download"
 
 let libsignalVersion = "libsignal-v0.86.16"
-let signalFfiChecksum = "31415d399e4d7d1ae803c93ef3692033d9e53dbbee90c8435973e5e05367468e"
+let signalFfiChecksum = "581bd5838c155e2a4f3296a29aebf29e8305dcd16f1006ed49e2255e5e159698"
 
 let ringrtcVersion = "ringrtc-v2.64.1"
 let ringRTCChecksum = "775cf83d086aa15baaeb912d3b62483491036f6a695ca8dc8057606e8a2732c8"
