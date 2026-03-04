@@ -19,11 +19,11 @@ let githubBaseURL = "https://github.com/fox156/htcnet-deps/releases/download"
 
 // libsignal v0.86.16
 let libsignalVersion = "libsignal-v0.86.16"
-let libsignalFFIChecksum = "fda2ee1904a37f35357b579cef2246febb28ab9d94ad37fe4c9e2e8f43064d0d"
+let libsignalFFIChecksum = "27c3426e4be4067b414a8971904c95b2f5e6c7187ad52d55b31eb7e212ad1365"
 
 // RingRTC v2.64.1
 let ringrtcVersion = "ringrtc-v2.64.1"
-let libRingRTCChecksum = "cc3083257c01c46aca2d9f8f444028ca31904d1b865a6edafedf1b58b69fefdc"
+let libRingRTCChecksum = "eff8d934bef82777834689d79b8bec3cbc224205aa68260246b2070194eba0d4"
 let webRTCChecksum = "d6fcb8aec002f769b2987c0ac372a04d9a553b08f3fc61020dedf3acc68ffd4a"
 
 let package = Package(
