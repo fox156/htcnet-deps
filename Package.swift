@@ -6,8 +6,8 @@ let githubBaseURL = "https://github.com/fox156/htcnet-deps/releases/download"
 let libsignalVersion = "libsignal-v0.86.16i"
 let signalFfiChecksum = "2f6ec0d95c7e78e29ca531086436c7d80629272329eb97e0505c8c48f8cb9cdb"
 
-let sqlcipherVersion = "sqlcipher-v4.6.1-fts5b"
-let sqlcipherChecksum = "b9463fa3ba3a680b8b29dbff6ad870ca003520f1160e8759c29df60a2218fc46"
+let sqlcipherVersion = "sqlcipher-v4.6.1-fts5c"
+let sqlcipherChecksum = "795454eeaaf4d59795f0fb49d115a4d868020523e8591873706ca12508850872"
 
 let package = Package(
     name: "HTCNetDeps",
