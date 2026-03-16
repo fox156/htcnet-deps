@@ -4,7 +4,7 @@ import PackageDescription
 let githubBaseURL = "https://github.com/fox156/htcnet-deps/releases/download"
 
 let libsignalVersion = "libsignal-v0.86.16j"
-let signalFfiChecksum = "34ffaccc8c2486957e01ec02371b285bd211ffc59479be8e0f6bd42c3511cbf5"
+let signalFfiChecksum = "9c4b6ea620a36121950f20c91d1202f5612dee5c385c1e9582412b84a2ac1fcb"
 
 let sqlcipherVersion = "sqlcipher-v4.6.1-fts5c"
 let sqlcipherChecksum = "795454eeaaf4d59795f0fb49d115a4d868020523e8591873706ca12508850872"
